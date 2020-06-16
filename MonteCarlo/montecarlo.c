@@ -7,17 +7,24 @@ double monte_carlo(int loop){
     int i, cntr;
     cntr = 0;
 
+    FILE *fp1, *fp2;
+    fp1 = fopen("xy.csv", "w");
+    fp2 = fopen("in_circle.csv", "w");
+
     for (i=0; i < loop; i++){
         srand(i);
         x = (double)rand() / RAND_MAX;
         y = (double)rand() / RAND_MAX;
+        fprintf(fp1, "%lf, %lf\n", x, y);
 
         if(x*x + y*y < 1){
             cntr++;
-            //printf("%d, %lf, %lf\n", cntr, x, y);
+            fprintf(fp2, "%lf, %lf\n", x, y);
         }
     }
     printf("%d/ %d\n", cntr, loop);
+    fclose(fp1);
+    fclose(fp2);
     return (double)4 * (double)cntr / (double)loop;
 }
 
